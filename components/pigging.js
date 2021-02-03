@@ -2,7 +2,7 @@ import NumberInput from "./inputs/numberInput";
 
 export default function Pigging() {
   return (
-    <div className="grid col-span-full grid-cols-12 gap-2 my-12 items-center">
+    <div className="grid col-span-full grid-cols-12 gap-2 my-6 items-center">
       <p className="italic col-span-2">
         First pig enters at <span className="font-semibold">41</span> hours.
       </p>

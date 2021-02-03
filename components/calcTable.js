@@ -142,7 +142,7 @@ export function DataTable() {
 export default function CalcTable() {
   return (
     <>
-      <h2 className="text-xl mb-4">Calculation Table</h2>
+      <h2 className="text-xl mb-2">Calculation Table</h2>
       <form className="grid col-span-full grid-cols-12 gap-2 items-center mb-4">
         <div className="col-span-full">
           <p className="font-semibold">
