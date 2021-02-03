@@ -1,16 +1,47 @@
 .heading {
-  @apply flex flex-col text-white justify-between text-center;
+  @apply text-white;
   background: #b71c1c;
+}
+
+.heading,
+.case {
+  @apply flex flex-col justify-between text-center;
 }
 
 .heading > div {
   @apply border-t border-red-900 p-2;
 }
 
-.heading > div:not(:first-child) {
+.heading > div:not(:first-child),
+.case > div {
   @apply flex flex-row justify-evenly items-center;
 }
 
 .heading > div:last-child {
-  @apply font-normal;
+  @apply italic;
 }
+
+.case {
+  @apply bg-pink-100 py-2;
+}
+
+.row {
+  @apply min-w-full col-span-full grid grid-cols-10 gap-1 relative;
+}
+
+.row:not(:first-child) {
+  @apply -mt-1;
+}
+
+.row:not(:first-child)::before {
+  content: "case number 1";
+  @apply text-gray-700 h-4 absolute -left-6 top-0 whitespace-nowrap text-xs;
+}
+
+.row:last-child {
+  @apply text-pink-100;
+}
+
+/* .case > div > div {
+  @apply mx-1 bg-gray-300;
+} */
