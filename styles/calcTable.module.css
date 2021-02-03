@@ -35,7 +35,7 @@
 
 .row:not(:first-child)::before {
   content: attr(data-label);
-  @apply text-gray-700 h-4 w-16 absolute -left-6 -top-0.5 whitespace-nowrap text-xs;
+  @apply text-gray-700 h-4 w-16 absolute -left-2 md:-left-3 2xl:-left-6 -top-0.5 whitespace-nowrap text-xs;
 }
 
 .row:nth-child(2n) > div {
