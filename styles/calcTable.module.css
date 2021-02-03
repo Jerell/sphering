@@ -22,7 +22,7 @@
 }
 
 .case {
-  @apply bg-pink-100 py-2;
+  @apply bg-pink-100 py-1 justify-center;
 }
 
 .row {
@@ -35,7 +35,7 @@
 
 .row:not(:first-child)::before {
   content: "case number 1";
-  @apply text-gray-700 h-4 absolute -left-6 top-0 whitespace-nowrap text-xs;
+  @apply text-gray-700 h-4 absolute -left-6 -top-0.5 whitespace-nowrap text-xs;
 }
 
 .row:last-child {

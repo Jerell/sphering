@@ -35,6 +35,8 @@ export default function NumberInput({
   fn,
   min = 0,
   placeholder,
+  border = true,
+  center,
 }) {
   function handleChange(e) {
     e.persist();
@@ -45,14 +47,17 @@ export default function NumberInput({
   return (
     <>
       {newLine && <div className="col-span-12"></div>}
-      <label htmlFor={label} className={`text-right ${labelClasses}`}>
-        {label[0].toUpperCase() + label.substr(1)}
-        {required && <span className="text-red-500">*</span>}
-      </label>
+      {label && (
+        <label htmlFor={label} className={`text-right ${labelClasses}`}>
+          {label[0].toUpperCase() + label.substr(1)}
+          {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
       <div
-        className={`col-span-2 flex border border-gray-300 focus-within:ring-red-500 focus-within:border-red-500 p-2 ${
-          unitRight ? "" : "pr-0"
-        } ${unitRight && "flex-row-reverse"}`}
+        className={`col-span-2 flex ${
+          border && "border"
+        } border-gray-300 focus-within:ring-red-500 focus-within:border-red-500 p-2
+        } ${unitRight ? "" : "pr-0"} ${unitRight && "flex-row-reverse"}`}
       >
         {unit && <span className="inline-flex mx-1">{unit}</span>}
         {units && <UnitSelect type={units}></UnitSelect>}
@@ -60,7 +65,9 @@ export default function NumberInput({
           type="number"
           min={min}
           name={label}
-          className={`focus:outline-none w-full`}
+          className={`focus:outline-none w-full ${
+            !border && "bg-transparent border-b border-gray-400"
+          } ${center && "text-center"}`}
           onChange={handleChange}
           placeholder={placeholder}
         ></input>

@@ -73,10 +73,14 @@ function CaseRow({ casenum }) {
         style={{ "--label": `Case number ${casenum}` }}
       >
         <div className={styles[cln]}>
-          <div>33</div>
+          <div>
+            <NumberInput border={false} unitRight placeholder={33} center />
+          </div>
         </div>
         <div className={styles[cln]}>
-          <div>74.1</div>
+          <div>
+            <NumberInput border={false} unitRight placeholder={74.1} center />
+          </div>
         </div>
         <div className={styles[cln]}>
           <div>
