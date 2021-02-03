@@ -33,10 +33,10 @@ export default function Layout({ children, pagesData }) {
         </h1>
       </header>
       <div className="grid grid-cols-12 gap-4 p-4 mb-auto">
-        <div className="col-span-12 2xl:col-span-1">
+        <div className="col-span-full 2xl:col-span-1">
           <Nav pagesData={pagesData}></Nav>
         </div>
-        <main className="col-span-12 2xl:col-span-11">{children}</main>
+        <main className="col-span-full 2xl:col-span-11">{children}</main>
       </div>
     </>
   );
