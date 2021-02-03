@@ -37,6 +37,7 @@ export default function NumberInput({
   placeholder,
   border = true,
   center,
+  inputWidth = 2,
 }) {
   function handleChange(e) {
     e.persist();
@@ -54,7 +55,7 @@ export default function NumberInput({
         </label>
       )}
       <div
-        className={`col-span-2 flex ${
+        className={`col-span-${inputWidth} flex ${
           border && "border"
         } border-gray-300 focus-within:ring-red-500 focus-within:border-red-500 p-2
         } ${unitRight ? "" : "pr-0"} ${unitRight && "flex-row-reverse"}`}

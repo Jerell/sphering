@@ -74,12 +74,24 @@ function CaseRow({ casenum }) {
       >
         <div className={styles[cln]}>
           <div>
-            <NumberInput border={false} unitRight placeholder={33} center />
+            <NumberInput
+              required
+              border={false}
+              unitRight
+              placeholder={33}
+              center
+            />
           </div>
         </div>
         <div className={styles[cln]}>
           <div>
-            <NumberInput border={false} unitRight placeholder={74.1} center />
+            <NumberInput
+              required
+              border={false}
+              unitRight
+              placeholder={74.1}
+              center
+            />
           </div>
         </div>
         <div className={styles[cln]}>
@@ -132,13 +144,25 @@ export default function CalcTable() {
     <>
       <h1 className="text-xl mb-4">Calculation Table</h1>
       <form className="grid grid-cols-1 md:grid-cols-9 gap-2 items-center">
+        <div className="col-span-full">
+          <p className="font-semibold">
+            If no CGRs are specified then the default will be used.
+          </p>
+          <p className="italic">
+            Defualt CGRs are based upon linear correlations from existing data
+            of gas flowrates and condensate flowrates.
+          </p>
+        </div>
         <NumberInput
+          inputWidth={1}
           label="CGR Southwark Line"
           placeholder={0.89}
           unit="bbl/MMscfd"
           unitRight
+          newLine
         />
         <NumberInput
+          inputWidth={1}
           label="CGR Blythe Platform"
           placeholder={20.21}
           unit="bbl/MMscfd"
