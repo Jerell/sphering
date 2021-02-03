@@ -38,8 +38,12 @@
   @apply text-gray-700 h-4 w-16 absolute -left-6 -top-0.5 whitespace-nowrap text-xs;
 }
 
+.row:nth-child(2n) > div {
+  @apply bg-pink-50;
+}
+
 .row:last-child {
-  @apply text-pink-100;
+  @apply text-transparent;
 }
 
 /* .case > div > div {

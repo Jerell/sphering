@@ -145,7 +145,7 @@ export default function CalcTable() {
   return (
     <>
       <h1 className="text-xl mb-4">Calculation Table</h1>
-      <form className="grid grid-cols-1 md:grid-cols-9 gap-2 items-center">
+      <form className="grid col-span-full grid-cols-1 md:grid-cols-9 gap-2 items-center">
         <div className="col-span-full">
           <p className="font-semibold">
             If no CGRs are specified then the default will be used.
