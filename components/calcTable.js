@@ -135,8 +135,6 @@ export function DataTable() {
       <CaseRow casenum={1} />
       <CaseRow casenum={2} />
       <CaseRow casenum={3} />
-      <CaseRow casenum={4} />
-      <CaseRow casenum={5} />
     </>
   );
 }
@@ -144,7 +142,7 @@ export function DataTable() {
 export default function CalcTable() {
   return (
     <>
-      <h1 className="text-xl mb-4">Calculation Table</h1>
+      <h2 className="text-xl mb-4">Calculation Table</h2>
       <form className="grid col-span-full grid-cols-12 gap-2 items-center">
         <div className="col-span-full">
           <p className="font-semibold">

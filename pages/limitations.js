@@ -13,7 +13,7 @@ export async function getStaticProps() {
 export default function Page({ pagesData }) {
   return (
     <Layout pagesData={pagesData}>
-      <h1 className="text-xl">Limitations of this model</h1>
+      <h2 className="text-xl">Limitations of this model</h2>
       <div className="unreset max-w-prose">
         <ol>
           <li>Southwark gas flowates are suitable between 16-73 MMscfd.</li>
