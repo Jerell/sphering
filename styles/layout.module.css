@@ -6,10 +6,8 @@
 }
 
 .header {
-  display: flex;
-  align-items: flex-start;
+  @apply flex items-start px-4 sticky top-0 z-50 border-b border-white;
   background: #b71c1c;
-  padding: 0 1rem;
 }
 
 .headerImage {
