@@ -70,7 +70,8 @@ function CaseRow({ casenum }) {
     <>
       <div
         className={`${styles.row}`}
-        style={{ "--label": `Case number ${casenum}` }}
+        // style={{ "--label": "guh" }}
+        data-label={`case number ${casenum}`}
       >
         <div className={styles[cln]}>
           <div>
@@ -132,9 +133,9 @@ export function DataTable() {
     <>
       <Headings />
       <CaseRow casenum={1} />
-      <CaseRow casenum={1} />
-      <CaseRow casenum={1} />
-      <CaseRow casenum={1} />
+      <CaseRow casenum={2} />
+      <CaseRow casenum={3} />
+      <CaseRow casenum={4} />
     </>
   );
 }

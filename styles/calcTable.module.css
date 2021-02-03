@@ -34,8 +34,8 @@
 }
 
 .row:not(:first-child)::before {
-  content: "case number 1";
-  @apply text-gray-700 h-4 absolute -left-6 -top-0.5 whitespace-nowrap text-xs;
+  content: attr(data-label);
+  @apply text-gray-700 h-4 w-16 absolute -left-6 -top-0.5 whitespace-nowrap text-xs;
 }
 
 .row:last-child {
