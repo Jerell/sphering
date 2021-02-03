@@ -1,0 +1,16 @@
+.heading {
+  @apply flex flex-col text-white justify-between text-center;
+  background: #b71c1c;
+}
+
+.heading > div {
+  @apply border-t border-red-900 p-2;
+}
+
+.heading > div:not(:first-child) {
+  @apply flex flex-row justify-evenly items-center;
+}
+
+.heading > div:last-child {
+  @apply font-normal;
+}
