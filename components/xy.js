@@ -1,6 +1,19 @@
 import { useRef, useEffect } from "react";
 import * as d3 from "d3";
-import { parse } from "remark";
+
+function getRandom(arr, n) {
+  var result = new Array(n),
+    len = arr.length,
+    taken = new Array(len);
+  if (n > len)
+    throw new RangeError("getRandom: more elements taken than available");
+  while (n--) {
+    var x = Math.floor(Math.random() * len);
+    result[n] = arr[x in taken ? taken[x] : x];
+    taken[x] = --len in taken ? taken[len] : len;
+  }
+  return result;
+}
 
 export default function XY() {
   const ref = useRef();
@@ -19,15 +32,6 @@ export default function XY() {
       .attr("height", height + margin.top + margin.bottom);
 
     d3.csv("xy.csv").then((data) => {
-      // const data = [
-      //   { x: 0, y: 0 },
-      //   { x: 1, y: 30 },
-      //   { x: 2, y: 40 },
-      //   { x: 3, y: 20 },
-      //   { x: 4, y: 90 },
-      //   { x: 5, y: 70 },
-      // ];
-
       const xVal = (d) => parseFloat(d.x);
       const yVal = (d) => parseFloat(d.y);
 
@@ -112,6 +116,23 @@ export default function XY() {
         .delay(500)
         .duration(1000)
         .style("stroke", "#b71c1c");
+
+      // circles
+      const randomPoints = getRandom(data, 4);
+      // console.log(randomPoints);
+      g.append("g")
+        .selectAll("dot")
+        .data(randomPoints)
+        .enter()
+        .append("circle")
+        .attr("cx", (d) => x(d.x))
+        .attr("cy", (d) => y(d.y))
+        .attr("r", 5)
+        .style("fill", "#fff")
+        .transition()
+        .delay(500)
+        .duration(1000)
+        .style("fill", "#b71c1c");
     });
   }
 
