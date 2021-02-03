@@ -136,6 +136,7 @@ export function DataTable() {
       <CaseRow casenum={2} />
       <CaseRow casenum={3} />
       <CaseRow casenum={4} />
+      <CaseRow casenum={5} />
     </>
   );
 }
