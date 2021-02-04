@@ -76,6 +76,9 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
   const [gfrSouthwark, setGfrSouthwark] = useState(0);
   const [gfrBlythe, setGfrBlythe] = useState(0);
 
+  const updateGfrS = (n) => setGfrSouthwark(n ? n : 0);
+  const updateGfrB = (n) => setGfrBlythe(n ? n : 0);
+
   const columnU = parseFloat(gfrSouthwark) + 0.1 * parseFloat(gfrBlythe);
 
   const condensateFR = {
@@ -119,7 +122,7 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
               unitRight
               placeholder={33}
               center
-              fn={setGfrSouthwark}
+              fn={updateGfrS}
             />
           </div>
         </div>
@@ -131,7 +134,7 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
               unitRight
               placeholder={74.1}
               center
-              fn={setGfrBlythe}
+              fn={updateGfrB}
             />
           </div>
         </div>
