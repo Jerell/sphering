@@ -42,10 +42,6 @@
   @apply bg-pink-50;
 }
 
-.row:last-child {
-  @apply text-transparent;
-}
-
 /* .case > div > div {
   @apply mx-1 bg-gray-300;
 } */

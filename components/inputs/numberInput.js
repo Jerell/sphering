@@ -42,7 +42,7 @@ export default function NumberInput({
   function handleChange(e) {
     e.persist();
     if (fn) {
-      fn(e.target.value);
+      fn(parseFloat(e.target.value));
     }
   }
   return (

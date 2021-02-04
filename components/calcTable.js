@@ -1,5 +1,6 @@
 import NumberInput from "../components/inputs/numberInput";
 import styles from "../styles/calcTable.module.css";
+import { useState } from "react";
 
 function Headings() {
   const cln = "heading";
@@ -64,13 +65,50 @@ function Headings() {
   );
 }
 
-function CaseRow({ casenum }) {
+function round(value, precision) {
+  var multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
+}
+
+function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
   const cln = "case";
+
+  const [gfrSouthwark, setGfrSouthwark] = useState(0);
+  const [gfrBlythe, setGfrBlythe] = useState(0);
+
+  const columnU = parseFloat(gfrSouthwark) + 0.1 * parseFloat(gfrBlythe);
+
+  const condensateFR = {
+    southwark: gfrSouthwark * cgrSouthwark,
+    blythe: gfrBlythe * cgrBlythe,
+  };
+
+  const cfrAtBacton = {
+    bb: condensateFR.southwark + condensateFR.blythe,
+    m3: function () {
+      return this.bb * 0.0066;
+    },
+  };
+
+  const backPressure = {
+    blythe: 0.0021 * gfrBlythe ** 2 - 0.151 * gfrBlythe + 86.101,
+  };
+
+  const pressureDrop = {
+    blythe: backPressure.blythe * 0.651 - 50.113,
+  };
+
+  const pigging = {
+    period: 0.3195 * cfrAtBacton.m3() ** 2 - 9.5667 * cfrAtBacton.m3() + 85.095,
+    transit: 2315.4 * columnU ** -1.148,
+  };
+
   return (
     <>
       <div
-        className={`${styles.row}`}
-        // style={{ "--label": "guh" }}
+        className={`${styles.row} ${
+          !gfrSouthwark && !gfrBlythe && "text-transparent"
+        }`}
         data-label={`case number ${casenum}`}
       >
         <div className={styles[cln]}>
@@ -81,6 +119,7 @@ function CaseRow({ casenum }) {
               unitRight
               placeholder={33}
               center
+              fn={setGfrSouthwark}
             />
           </div>
         </div>
@@ -92,35 +131,36 @@ function CaseRow({ casenum }) {
               unitRight
               placeholder={74.1}
               center
+              fn={setGfrBlythe}
             />
           </div>
         </div>
         <div className={styles[cln]}>
           <div>
-            <div>1527</div>
-            <div>10</div>
+            <div>{round(cfrAtBacton.bb)}</div>
+            <div>{round(cfrAtBacton.m3())}</div>
           </div>
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
-            <div>29</div>
-            <div>1497</div>
+            <div>{round(condensateFR.southwark)}</div>
+            <div>{round(condensateFR.blythe)}</div>
           </div>
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
             <div>87-89</div>
-            <div>86</div>
+            <div>{round(backPressure.blythe)}</div>
           </div>
         </div>
         <div className={styles[cln]}>
-          <div>6.2</div>
+          <div>{round(pressureDrop.blythe, 1)}</div>
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
             <div>2</div>
-            <div>21</div>
-            <div>33</div>
+            <div>{round(pigging.period)}</div>
+            <div>{round(pigging.transit)}</div>
           </div>
         </div>
       </div>
@@ -128,18 +168,25 @@ function CaseRow({ casenum }) {
   );
 }
 
-export function DataTable() {
+export function DataTable({ cgrSouthwark, cgrBlythe }) {
   return (
     <>
       <Headings />
-      <CaseRow casenum={1} />
-      <CaseRow casenum={2} />
-      <CaseRow casenum={3} />
+      <CaseRow casenum={1} cgrSouthwark={cgrSouthwark} cgrBlythe={cgrBlythe} />
+      <CaseRow casenum={2} cgrSouthwark={cgrSouthwark} cgrBlythe={cgrBlythe} />
+      <CaseRow casenum={3} cgrSouthwark={cgrSouthwark} cgrBlythe={cgrBlythe} />
     </>
   );
 }
 
 export default function CalcTable() {
+  const defaults = {
+    cgrs: 0.8909,
+    cgrb: 20.205,
+  };
+  const [cgrSouthwark, setCgrSouthwark] = useState(defaults.cgrs);
+  const [cgrBlythe, setCgrBlythe] = useState(defaults.cgrb);
+
   return (
     <>
       <h2 className="text-xl mb-2">Calculation Table</h2>
@@ -156,7 +203,8 @@ export default function CalcTable() {
         <NumberInput
           // inputWidth={1}
           label="CGR Southwark Line"
-          placeholder={0.89}
+          placeholder={defaults.cgrs}
+          fn={setCgrSouthwark}
           unit="bbl/MMscfd"
           unitRight
           newLine
@@ -164,13 +212,14 @@ export default function CalcTable() {
         <NumberInput
           // inputWidth={1}
           label="CGR Blythe Platform"
-          placeholder={20.21}
+          placeholder={defaults.cgrb}
+          fn={setCgrBlythe}
           unit="bbl/MMscfd"
           unitRight
           lineBreak
         />
         <div className="contents col-span-full">
-          <DataTable />
+          <DataTable cgrSouthwark={cgrSouthwark} cgrBlythe={cgrBlythe} />
         </div>
       </form>
     </>
