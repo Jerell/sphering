@@ -104,7 +104,24 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
   const pigging = {
     period: 0.3195 * cfrAtBacton.m3() ** 2 - 9.5667 * cfrAtBacton.m3() + 85.095,
     transit: 2315.4 * columnU ** -1.148,
+    nomax: function () {
+      return Math.ceil(Math.ceil(this.transit) / Math.ceil(this.period));
+    },
   };
+
+  const spheresAndPressure = [
+    "N/A",
+    "85-86",
+    "87-89",
+    "89-90",
+    "90-91",
+    ">91",
+    ">91",
+    ">91",
+    ">91",
+    ">91",
+    ">91",
+  ];
 
   return (
     <>
@@ -152,7 +169,7 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
-            <div>87-89</div>
+            <div>{spheresAndPressure[pigging.nomax()]}</div>
             <div>{round(backPressure.blythe)}</div>
           </div>
         </div>
@@ -161,7 +178,7 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
-            <div>2</div>
+            <div>{pigging.nomax()}</div>
             <div>{round(pigging.period)}</div>
             <div>{round(pigging.transit)}</div>
           </div>
