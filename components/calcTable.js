@@ -1,6 +1,6 @@
 import NumberInput from "../components/inputs/numberInput";
 import styles from "../styles/calcTable.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Headings() {
   const cln = "heading";
@@ -70,11 +70,30 @@ function round(value, precision) {
   return Math.round(value * multiplier) / multiplier;
 }
 
-function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
+function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow }) {
   const cln = "case";
 
   const [gfrSouthwark, setGfrSouthwark] = useState(0);
   const [gfrBlythe, setGfrBlythe] = useState(0);
+  const [isEmpty, setIsEmpty] = useState(true);
+
+  let wasEmpty = true;
+
+  function emptyCheck() {
+    const bothInputsEntered = gfrSouthwark && gfrBlythe;
+    wasEmpty = isEmpty;
+    setIsEmpty(!bothInputsEntered);
+  }
+
+  function emptyTrigger() {
+    if (wasEmpty && !isEmpty) {
+      addRow(casenum);
+    }
+  }
+
+  useEffect(emptyTrigger, [isEmpty]);
+
+  useEffect(emptyCheck, [gfrSouthwark, gfrBlythe]);
 
   const updateGfrS = (n) => setGfrSouthwark(n ? n : 0);
   const updateGfrB = (n) => setGfrBlythe(n ? n : 0);
@@ -189,12 +208,27 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe }) {
 }
 
 export function DataTable({ cgrSouthwark, cgrBlythe }) {
+  const [numRows, setNumRows] = useState(1);
+
+  const rows = Array.apply(null, { length: numRows }).map((e, i) => (
+    <CaseRow
+      casenum={i + 1}
+      cgrSouthwark={cgrSouthwark}
+      cgrBlythe={cgrBlythe}
+      addRow={addRow}
+      key={i}
+    />
+  ));
+
+  function addRow(which) {
+    console.log({ which });
+    setNumRows(numRows + 1);
+  }
+
   return (
     <>
       <Headings />
-      <CaseRow casenum={1} cgrSouthwark={cgrSouthwark} cgrBlythe={cgrBlythe} />
-      <CaseRow casenum={2} cgrSouthwark={cgrSouthwark} cgrBlythe={cgrBlythe} />
-      <CaseRow casenum={3} cgrSouthwark={cgrSouthwark} cgrBlythe={cgrBlythe} />
+      {rows}
     </>
   );
 }
