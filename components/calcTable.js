@@ -207,6 +207,9 @@ export default function CalcTable() {
   const [cgrSouthwark, setCgrSouthwark] = useState(defaults.cgrs);
   const [cgrBlythe, setCgrBlythe] = useState(defaults.cgrb);
 
+  const updateCgrS = (n) => setCgrSouthwark(n ? n : defaults.cgrs);
+  const updateCgrB = (n) => setCgrBlythe(n ? n : defaults.cgrb);
+
   return (
     <>
       <h2 className="text-xl mb-2">Calculation Table</h2>
@@ -224,7 +227,7 @@ export default function CalcTable() {
           // inputWidth={1}
           label="CGR Southwark Line"
           placeholder={defaults.cgrs}
-          fn={setCgrSouthwark}
+          fn={updateCgrS}
           unit="bbl/MMscfd"
           unitRight
           newLine
@@ -233,7 +236,7 @@ export default function CalcTable() {
           // inputWidth={1}
           label="CGR Blythe Platform"
           placeholder={defaults.cgrb}
-          fn={setCgrBlythe}
+          fn={updateCgrB}
           unit="bbl/MMscfd"
           unitRight
           lineBreak
