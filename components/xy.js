@@ -45,11 +45,13 @@ function getPigPositions({
     nomax,
     (timeInRun >= firstEntry) + Math.floor((timeInRun - firstEntry) / period)
   );
+  console.log({ numPigs });
   if (!numPigs) return pigs;
 
   for (let i = 0; i < numPigs; i++) {
     const travelTime = timeInRun - i * period - firstEntry;
     const journeyFraction = travelTime / transitTime;
+    console.log(i, travelTime, journeyFraction);
     if (journeyFraction > 1) continue; // skip if past end
 
     const jf = round(journeyFraction, 4);
@@ -58,6 +60,7 @@ function getPigPositions({
 
     addPig({ x: parseFloat(coordRow[1]), y: parseFloat(coordRow[2]) });
   }
+  console.log(pigs);
   return pigs;
 }
 

@@ -2,20 +2,20 @@ import NumberInput from "./inputs/numberInput";
 import XY from "./xy";
 import { useState } from "react";
 
-export default function Pigging({ journey, nomax }) {
+export default function Pigging({ journey, nomax, period, transitTime }) {
   const defaults = {
     period: 20,
     timeInRun: 110,
     transit: 70,
   };
 
-  const [period, setPeriod] = useState(defaults.period);
+  // const [period, setPeriod] = useState(defaults.period);
   const [timeInRun, setTimeInRun] = useState(defaults.timeInRun);
-  const [transitTime, setTransitTime] = useState(defaults.transit);
+  // const [transitTime, setTransitTime] = useState(defaults.transit);
 
-  const updatePeriod = (n) => setPeriod(n ? n : defaults.period);
+  // const updatePeriod = (n) => setPeriod(n ? n : defaults.period);
   const updateTimeInRun = (n) => setTimeInRun(n ? n : defaults.timeInRun);
-  const updateTransitTime = (n) => setTransitTime(n ? n : defaults.transit);
+  // const updateTransitTime = (n) => setTransitTime(n ? n : defaults.transit);
 
   const firstEntry = 2 * period + 1;
 
@@ -25,20 +25,20 @@ export default function Pigging({ journey, nomax }) {
         First pig enters at <span className="font-semibold">{firstEntry}</span>{" "}
         hours.
       </p>
-      <NumberInput
+      {/* <NumberInput
         label="Pigging period"
         placeholder={defaults.period}
         unit="hours"
         unitRight
         fn={updatePeriod}
-      />
-      <NumberInput
+      /> */}
+      {/* <NumberInput
         label="Transit time"
         placeholder={defaults.transit}
         unit="hours"
         unitRight
         fn={updateTransitTime}
-      />
+      /> */}
       <NumberInput
         label="Time in run"
         placeholder={defaults.timeInRun}

@@ -68,7 +68,15 @@ function Headings() {
   );
 }
 
-function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow, setNoMax }) {
+function CaseRow({
+  casenum,
+  cgrSouthwark,
+  cgrBlythe,
+  addRow,
+  setNoMax,
+  setPeriod,
+  setTransit,
+}) {
   const cln = "case";
 
   const [gfrSouthwark, setGfrSouthwark] = useState(0);
@@ -95,6 +103,8 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow, setNoMax }) {
 
   useEffect(() => {
     if (setNoMax) setNoMax(numberMax);
+    if (setPeriod) setPeriod(pigging.period);
+    if (setTransit) setTransit(pigging.transit);
     emptyCheck();
   }, [gfrSouthwark, gfrBlythe]);
 
@@ -211,7 +221,13 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow, setNoMax }) {
   );
 }
 
-export function DataTable({ cgrSouthwark, cgrBlythe, setNoMax }) {
+export function DataTable({
+  cgrSouthwark,
+  cgrBlythe,
+  setNoMax,
+  setPeriod,
+  setTransit,
+}) {
   const [numRows, setNumRows] = useState(1);
 
   const rows = Array.apply(null, { length: numRows }).map((e, i) => (
@@ -222,6 +238,8 @@ export function DataTable({ cgrSouthwark, cgrBlythe, setNoMax }) {
       addRow={addRow}
       key={i}
       setNoMax={setNoMax}
+      setPeriod={setPeriod}
+      setTransit={setTransit}
     />
   ));
 
@@ -247,7 +265,7 @@ export function DataTable({ cgrSouthwark, cgrBlythe, setNoMax }) {
   );
 }
 
-export default function CalcTable({ setNoMax }) {
+export default function CalcTable({ setNoMax, setPeriod, setTransit }) {
   const defaults = {
     cgrs: 0.8909,
     cgrb: 20.205,
@@ -294,6 +312,8 @@ export default function CalcTable({ setNoMax }) {
             cgrSouthwark={cgrSouthwark}
             cgrBlythe={cgrBlythe}
             setNoMax={setNoMax}
+            setPeriod={setPeriod}
+            setTransit={setTransit}
           />
         </div>
       </form>

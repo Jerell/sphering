@@ -27,11 +27,22 @@ export async function getStaticProps() {
 
 export default function Page({ pagesData, journey }) {
   const [pig_nomax, setNoMax] = useState(0);
+  const [pig_period, setPigPeriod] = useState(20);
+  const [pig_transit, setTransit] = useState(70);
 
   return (
     <Layout pagesData={pagesData}>
-      <CalcTable setNoMax={setNoMax} />
-      <Pigging journey={journey} nomax={pig_nomax} />
+      <CalcTable
+        setNoMax={setNoMax}
+        setPeriod={setPigPeriod}
+        setTransit={setTransit}
+      />
+      <Pigging
+        journey={journey}
+        nomax={pig_nomax}
+        period={pig_period}
+        transitTime={pig_transit}
+      />
     </Layout>
   );
 }
