@@ -18,7 +18,6 @@ export default function Page({ pagesData }) {
     <Layout pagesData={pagesData}>
       <CalcTable />
       <Pigging />
-      <XY />
     </Layout>
   );
 }

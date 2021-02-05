@@ -15,7 +15,7 @@ function getRandom(arr, n) {
   return result;
 }
 
-export default function XY() {
+export default function XY({ period, transitTime, timeInRun }) {
   const ref = useRef();
 
   function init() {
