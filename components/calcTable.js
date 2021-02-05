@@ -221,8 +221,7 @@ export function DataTable({ cgrSouthwark, cgrBlythe }) {
   ));
 
   function addRow(which) {
-    console.log({ which });
-    setNumRows(numRows + 1);
+    if (which === numRows) setNumRows(numRows + 1);
   }
 
   return (
