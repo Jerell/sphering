@@ -23,7 +23,8 @@ export default function XY({ period, transitTime, timeInRun }) {
 
     const margin = { top: 50, right: 80, bottom: 80, left: 55 },
       width = ref.current.clientWidth - margin.left - margin.right,
-      height = 600 - margin.top - margin.bottom;
+      height = 600 - margin.top - margin.bottom,
+      tieInColor = "#ccc";
 
     const svg = d3
       .select(ref.current)
@@ -64,21 +65,49 @@ export default function XY({ period, transitTime, timeInRun }) {
         .attr("transform", `translate(0, ${height})`)
         .call(xAxis);
 
+      const checkpoints = g
+        .append("g")
+        .selectAll("checkpoint")
+        .data([
+          { x: 0, name: "Southwark Hub Platform" },
+          { x: 5655, name: "Southwark Hub Tie-in" },
+          { x: 37255, name: "Blythe Hub Tie-in" },
+          { x: 66279, name: "Bacton" },
+        ])
+        .enter();
+
+      checkpoints
+        .append("line")
+        .attr("x1", (d) => x(d.x))
+        .attr("y1", 0)
+        .attr("x2", (d) => x(d.x))
+        .attr("y2", height)
+        .style("stroke", tieInColor)
+        .style("fill", "none");
+
+      checkpoints
+        .append("text") // inner x-axis label
+        .attr("class", "x label")
+        .attr("text-anchor", (d) => (d.x < 10000 ? "start" : "end"))
+        .attr("x", (d) => x(d.x) + (d.x < 10000 ? 5 : -5))
+        .attr("y", (d, i) => (i % 2 ? 10 : height - 6))
+        .text((d) => d.name);
+
       // Axis labels
-      // end
-      g.append("text") // inner x-axis label
-        .attr("class", "x label")
-        .attr("text-anchor", "end")
-        .attr("x", width - 6)
-        .attr("y", height - 6)
-        .text("bacton");
-      // start
-      g.append("text") // inner x-axis label
-        .attr("class", "x label")
-        .attr("text-anchor", "end")
-        .attr("x", 90)
-        .attr("y", height - 6)
-        .text("southwark");
+      // // end
+      // g.append("text") // inner x-axis label
+      //   .attr("class", "x label")
+      //   .attr("text-anchor", "end")
+      //   .attr("x", width - 6)
+      //   .attr("y", height - 6)
+      //   .text("bacton");
+      // // start
+      // g.append("text") // inner x-axis label
+      //   .attr("class", "x label")
+      //   .attr("text-anchor", "end")
+      //   .attr("x", 90)
+      //   .attr("y", height - 6)
+      //   .text("southwark");
 
       g.append("text") // outer x-axis label
         .attr("class", "x label")
