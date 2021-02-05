@@ -68,12 +68,14 @@ function Headings() {
   );
 }
 
-function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow }) {
+function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow, setNoMax }) {
   const cln = "case";
 
   const [gfrSouthwark, setGfrSouthwark] = useState(0);
   const [gfrBlythe, setGfrBlythe] = useState(0);
   const [isEmpty, setIsEmpty] = useState(true);
+
+  // const [nomax, setNoMax] = useState(0);
 
   let wasEmpty = true;
 
@@ -91,7 +93,10 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow }) {
 
   useEffect(emptyTrigger, [isEmpty]);
 
-  useEffect(emptyCheck, [gfrSouthwark, gfrBlythe]);
+  useEffect(() => {
+    if (setNoMax) setNoMax(numberMax);
+    emptyCheck();
+  }, [gfrSouthwark, gfrBlythe]);
 
   const updateGfrS = (n) => setGfrSouthwark(n ? n : 0);
   const updateGfrB = (n) => setGfrBlythe(n ? n : 0);
@@ -121,10 +126,11 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow }) {
   const pigging = {
     period: 0.3195 * cfrAtBacton.m3() ** 2 - 9.5667 * cfrAtBacton.m3() + 85.095,
     transit: 2315.4 * columnU ** -1.148,
-    nomax: function () {
-      return Math.ceil(Math.ceil(this.transit) / Math.ceil(this.period));
-    },
   };
+
+  const numberMax = Math.ceil(
+    Math.ceil(pigging.transit) / Math.ceil(pigging.period)
+  );
 
   const spheresAndPressure = [
     "N/A",
@@ -186,7 +192,7 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow }) {
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
-            <div>{spheresAndPressure[pigging.nomax()]}</div>
+            <div>{spheresAndPressure[numberMax]}</div>
             <div>{round(backPressure.blythe)}</div>
           </div>
         </div>
@@ -195,7 +201,7 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow }) {
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
-            <div>{pigging.nomax()}</div>
+            <div>{numberMax}</div>
             <div>{round(pigging.period)}</div>
             <div>{round(pigging.transit)}</div>
           </div>
@@ -205,7 +211,7 @@ function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow }) {
   );
 }
 
-export function DataTable({ cgrSouthwark, cgrBlythe }) {
+export function DataTable({ cgrSouthwark, cgrBlythe, setNoMax }) {
   const [numRows, setNumRows] = useState(1);
 
   const rows = Array.apply(null, { length: numRows }).map((e, i) => (
@@ -215,6 +221,7 @@ export function DataTable({ cgrSouthwark, cgrBlythe }) {
       cgrBlythe={cgrBlythe}
       addRow={addRow}
       key={i}
+      setNoMax={setNoMax}
     />
   ));
 
@@ -240,7 +247,7 @@ export function DataTable({ cgrSouthwark, cgrBlythe }) {
   );
 }
 
-export default function CalcTable() {
+export default function CalcTable({ setNoMax }) {
   const defaults = {
     cgrs: 0.8909,
     cgrb: 20.205,
@@ -283,7 +290,11 @@ export default function CalcTable() {
           lineBreak
         />
         <div className="contents col-span-full">
-          <DataTable cgrSouthwark={cgrSouthwark} cgrBlythe={cgrBlythe} />
+          <DataTable
+            cgrSouthwark={cgrSouthwark}
+            cgrBlythe={cgrBlythe}
+            setNoMax={setNoMax}
+          />
         </div>
       </form>
     </>

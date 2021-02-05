@@ -2,7 +2,7 @@ import NumberInput from "./inputs/numberInput";
 import XY from "./xy";
 import { useState } from "react";
 
-export default function Pigging({ journey }) {
+export default function Pigging({ journey, nomax }) {
   const defaults = {
     period: 20,
     timeInRun: 110,
@@ -52,6 +52,7 @@ export default function Pigging({ journey }) {
           transitTime={transitTime}
           timeInRun={timeInRun}
           journey={journey}
+          nomax={nomax}
         />
       </div>
     </div>

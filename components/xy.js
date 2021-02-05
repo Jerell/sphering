@@ -23,7 +23,13 @@ const tieInPoints = [
   { x: 66279, name: "Bacton", journeyFraction: 1 },
 ];
 
-function getPigPositions({ period, transitTime, timeInRun, journey }) {
+function getPigPositions({
+  period,
+  transitTime,
+  timeInRun,
+  journey,
+  nomax = 4,
+}) {
   console.log(arguments[0]);
 
   const pigs = [];
@@ -35,37 +41,27 @@ function getPigPositions({ period, transitTime, timeInRun, journey }) {
   }
 
   const firstEntry = 2 * period + 1;
-  const numPigs =
-    (timeInRun >= firstEntry) + Math.floor((timeInRun - firstEntry) / period);
+  const numPigs = Math.min(
+    nomax,
+    (timeInRun >= firstEntry) + Math.floor((timeInRun - firstEntry) / period)
+  );
   if (!numPigs) return pigs;
 
   for (let i = 0; i < numPigs; i++) {
-    // console.group(`Pig ${i}`);
-
     const travelTime = timeInRun - i * period - firstEntry;
     const journeyFraction = travelTime / transitTime;
     if (journeyFraction > 1) continue; // skip if past end
 
-    // console.log({ travelTime, journeyFraction });
-
-    // let nextCheckpointIdx = tieInPoints.findIndex(
-    //   (tp) => tp.journeyFraction >= journeyFraction
-    // );
-
     const jf = round(journeyFraction, 4);
     const coordIdx = journey.findIndex((row) => parseFloat(row[0]) > jf) - 1;
     const coordRow = journey[coordIdx];
-    console.log({ coordIdx }, journey[coordIdx]);
 
-    // console.log(nextCheckpointIdx, tieInPoints[nextCheckpointIdx]);
     addPig({ x: parseFloat(coordRow[1]), y: parseFloat(coordRow[2]) });
-    console.groupEnd();
   }
-  console.log({ pigs });
   return pigs;
 }
 
-export default function XY({ period, transitTime, timeInRun, journey }) {
+export default function XY({ period, transitTime, timeInRun, journey, nomax }) {
   const ref = useRef();
 
   const pigLocations = getPigPositions({
@@ -73,6 +69,7 @@ export default function XY({ period, transitTime, timeInRun, journey }) {
     transitTime,
     timeInRun,
     journey,
+    nomax,
   });
 
   function init() {
@@ -225,7 +222,7 @@ export default function XY({ period, transitTime, timeInRun, journey }) {
     });
   }
 
-  useEffect(init, [period, transitTime, timeInRun]);
+  useEffect(init, [period, transitTime, timeInRun, nomax]);
 
   return (
     <>

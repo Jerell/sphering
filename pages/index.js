@@ -5,6 +5,7 @@ import Pigging from "../components/pigging";
 import fs from "fs";
 import path from "path";
 import parse from "csv-parse/lib/sync";
+import { useState } from "react";
 
 export async function getStaticProps() {
   const pagesData = getPagesObj();
@@ -25,10 +26,12 @@ export async function getStaticProps() {
 }
 
 export default function Page({ pagesData, journey }) {
+  const [pig_nomax, setNoMax] = useState(0);
+
   return (
     <Layout pagesData={pagesData}>
-      <CalcTable />
-      <Pigging journey={journey} />
+      <CalcTable setNoMax={setNoMax} />
+      <Pigging journey={journey} nomax={pig_nomax} />
     </Layout>
   );
 }
