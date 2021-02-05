@@ -3,6 +3,7 @@ import styles from "../styles/calcTable.module.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { round } from "../public/utils";
 
 function Headings() {
   const cln = "heading";
@@ -65,11 +66,6 @@ function Headings() {
       </div>
     </div>
   );
-}
-
-function round(value, precision) {
-  var multiplier = Math.pow(10, precision || 0);
-  return Math.round(value * multiplier) / multiplier;
 }
 
 function CaseRow({ casenum, cgrSouthwark, cgrBlythe, addRow }) {

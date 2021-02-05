@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import * as d3 from "d3";
+import { round } from "../public/utils";
 
 function getRandom(arr, n) {
   var result = new Array(n),
@@ -15,8 +16,64 @@ function getRandom(arr, n) {
   return result;
 }
 
-export default function XY({ period, transitTime, timeInRun }) {
+const tieInPoints = [
+  { x: 0, name: "Southwark Hub Platform", journeyFraction: 0 },
+  { x: 5655, name: "Southwark Hub Tie-in", journeyFraction: 0.15 },
+  { x: 37255, name: "Blythe Hub Tie-in", journeyFraction: 0.75 },
+  { x: 66279, name: "Bacton", journeyFraction: 1 },
+];
+
+function getPigPositions({ period, transitTime, timeInRun, journey }) {
+  console.log(arguments[0]);
+
+  const pigs = [];
+  function addPig({ x, y }) {
+    pigs.push({ x, y });
+  }
+  function removePig() {
+    pigs.shift();
+  }
+
+  const firstEntry = 2 * period + 1;
+  const numPigs =
+    (timeInRun >= firstEntry) + Math.floor((timeInRun - firstEntry) / period);
+  if (!numPigs) return pigs;
+
+  for (let i = 0; i < numPigs; i++) {
+    // console.group(`Pig ${i}`);
+
+    const travelTime = timeInRun - i * period - firstEntry;
+    const journeyFraction = travelTime / transitTime;
+    if (journeyFraction > 1) continue; // skip if past end
+
+    // console.log({ travelTime, journeyFraction });
+
+    // let nextCheckpointIdx = tieInPoints.findIndex(
+    //   (tp) => tp.journeyFraction >= journeyFraction
+    // );
+
+    const jf = round(journeyFraction, 4);
+    const coordIdx = journey.findIndex((row) => parseFloat(row[0]) > jf) - 1;
+    const coordRow = journey[coordIdx];
+    console.log({ coordIdx }, journey[coordIdx]);
+
+    // console.log(nextCheckpointIdx, tieInPoints[nextCheckpointIdx]);
+    addPig({ x: parseFloat(coordRow[1]), y: parseFloat(coordRow[2]) });
+    console.groupEnd();
+  }
+  console.log({ pigs });
+  return pigs;
+}
+
+export default function XY({ period, transitTime, timeInRun, journey }) {
   const ref = useRef();
+
+  const pigLocations = getPigPositions({
+    period,
+    transitTime,
+    timeInRun,
+    journey,
+  });
 
   function init() {
     ref.current.innerHTML = "";
@@ -68,12 +125,7 @@ export default function XY({ period, transitTime, timeInRun }) {
       const checkpoints = g
         .append("g")
         .selectAll("checkpoint")
-        .data([
-          { x: 0, name: "Southwark Hub Platform" },
-          { x: 5655, name: "Southwark Hub Tie-in" },
-          { x: 37255, name: "Blythe Hub Tie-in" },
-          { x: 66279, name: "Bacton" },
-        ])
+        .data(tieInPoints)
         .enter();
 
       checkpoints
@@ -155,11 +207,11 @@ export default function XY({ period, transitTime, timeInRun }) {
         .style("stroke", "#b71c1c");
 
       // circles
-      const randomPoints = getRandom(data, 4);
+      // const randomPoints = getRandom(data, 4);
       // console.log(randomPoints);
       g.append("g")
         .selectAll("dot")
-        .data(randomPoints)
+        .data(pigLocations)
         .enter()
         .append("circle")
         .attr("cx", (d) => x(d.x))
@@ -173,7 +225,7 @@ export default function XY({ period, transitTime, timeInRun }) {
     });
   }
 
-  useEffect(init, []);
+  useEffect(init, [period, transitTime, timeInRun]);
 
   return (
     <>
