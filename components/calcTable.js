@@ -1,6 +1,8 @@
 import NumberInput from "../components/inputs/numberInput";
 import styles from "../styles/calcTable.module.css";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function Headings() {
   const cln = "heading";
@@ -220,6 +222,15 @@ export function DataTable({ cgrSouthwark, cgrBlythe }) {
     />
   ));
 
+  const removeRowButton =
+    numRows > 1 ? (
+      <FontAwesomeIcon
+        icon={faMinusCircle}
+        className={styles.rowRemove}
+        onClick={() => setNumRows(numRows - 1)}
+      />
+    ) : null;
+
   function addRow(which) {
     if (which === numRows) setNumRows(numRows + 1);
   }
@@ -228,6 +239,7 @@ export function DataTable({ cgrSouthwark, cgrBlythe }) {
     <>
       <Headings />
       {rows}
+      {removeRowButton}
     </>
   );
 }
@@ -246,7 +258,7 @@ export default function CalcTable() {
   return (
     <>
       <h2 className="text-xl mb-2">Calculation Table</h2>
-      <form className="grid col-span-full grid-cols-12 gap-2 items-center mb-4">
+      <form className="grid col-span-full grid-cols-12 gap-2 items-center mb-4 relative">
         <div className="col-span-full">
           <p className="font-semibold">
             If no CGRs are specified then the default will be used.

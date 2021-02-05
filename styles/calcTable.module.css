@@ -42,6 +42,10 @@
   @apply bg-pink-50;
 }
 
+.rowRemove {
+  @apply absolute bottom-3 -left-4 h-5 fill-current text-red-800 hover:text-red-500;
+}
+
 /* .case > div > div {
   @apply mx-1 bg-gray-300;
 } */
