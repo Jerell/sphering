@@ -1,14 +1,16 @@
 import NumberInput from "./inputs/numberInput";
 import XY from "./xy";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { round } from "../public/utils";
 
 export default function Pigging({ journey, nomax, period, transitTime }) {
   const defaults = {
     period: 20,
-    timeInRun: 110,
+    timeInRun: 65,
     transit: 70,
   };
+
+  const [hasChanged, setHasChanged] = useState(false);
 
   // const [period, setPeriod] = useState(defaults.period);
   const [timeInRun, setTimeInRun] = useState(defaults.timeInRun);
@@ -18,13 +20,20 @@ export default function Pigging({ journey, nomax, period, transitTime }) {
   const updateTimeInRun = (n) => setTimeInRun(n ? n : defaults.timeInRun);
   // const updateTransitTime = (n) => setTransitTime(n ? n : defaults.transit);
 
+  useEffect(() => {
+    setHasChanged(nomax !== Infinity);
+  }, [period]);
   const firstEntry = 2 * period + 1;
 
   return (
     <div className="grid col-span-full grid-cols-12 gap-2 my-6 items-center">
       <p className="italic col-span-2">
-        First pig enters at{" "}
-        <span className="font-semibold">{round(firstEntry, 1)}</span> hours.
+        {hasChanged ? (
+          <>
+            First pig enters at{" "}
+            <span className="font-semibold">{round(firstEntry, 1)}</span> hours.
+          </>
+        ) : null}
       </p>
       {/* <NumberInput
         label="Pigging period"
