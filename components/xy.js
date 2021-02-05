@@ -65,12 +65,20 @@ export default function XY() {
         .call(xAxis);
 
       // Axis labels
+      // end
       g.append("text") // inner x-axis label
         .attr("class", "x label")
         .attr("text-anchor", "end")
         .attr("x", width - 6)
         .attr("y", height - 6)
-        .text("inner x-axis label");
+        .text("bacton");
+      // start
+      g.append("text") // inner x-axis label
+        .attr("class", "x label")
+        .attr("text-anchor", "end")
+        .attr("x", 90)
+        .attr("y", height - 6)
+        .text("southwark");
 
       g.append("text") // outer x-axis label
         .attr("class", "x label")
@@ -87,14 +95,14 @@ export default function XY() {
         .attr("dy", "+.75em")
         .text("Bathymetry");
 
-      g.append("text") // inner y-axis label
-        .attr("class", "y label")
-        .attr("text-anchor", "end")
-        .attr("x", -6)
-        .attr("y", 6)
-        .attr("dy", ".75em")
-        .attr("transform", "rotate(-90)")
-        .text("inner y-axis label");
+      // g.append("text") // inner y-axis label
+      //   .attr("class", "y label")
+      //   .attr("text-anchor", "end")
+      //   .attr("x", -6)
+      //   .attr("y", 6)
+      //   .attr("dy", ".75em")
+      //   .attr("transform", "rotate(-90)")
+      //   .text("inner y-axis label");
 
       g.append("text") // outer y-axis label
         .attr("class", "x label")
