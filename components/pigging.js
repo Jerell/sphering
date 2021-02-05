@@ -1,6 +1,7 @@
 import NumberInput from "./inputs/numberInput";
 import XY from "./xy";
 import { useState } from "react";
+import { round } from "../public/utils";
 
 export default function Pigging({ journey, nomax, period, transitTime }) {
   const defaults = {
@@ -22,8 +23,8 @@ export default function Pigging({ journey, nomax, period, transitTime }) {
   return (
     <div className="grid col-span-full grid-cols-12 gap-2 my-6 items-center">
       <p className="italic col-span-2">
-        First pig enters at <span className="font-semibold">{firstEntry}</span>{" "}
-        hours.
+        First pig enters at{" "}
+        <span className="font-semibold">{round(firstEntry, 1)}</span> hours.
       </p>
       {/* <NumberInput
         label="Pigging period"
