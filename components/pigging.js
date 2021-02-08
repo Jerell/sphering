@@ -17,7 +17,7 @@ export default function Pigging({ journey, period, transitTime }) {
   // const [transitTime, setTransitTime] = useState(defaults.transit);
 
   // const updatePeriod = (n) => setPeriod(n ? n : defaults.period);
-  const updateTimeInRun = (n) => setTimeInRun(n ? n : defaults.timeInRun);
+  const updateTimeInRun = (n) => setTimeInRun(n);
   // const updateTransitTime = (n) => setTransitTime(n ? n : defaults.transit);
 
   // useEffect(() => {
