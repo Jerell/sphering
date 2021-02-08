@@ -3,7 +3,7 @@ import XY from "./xy";
 import { useState, useEffect } from "react";
 import { round } from "../public/utils";
 
-export default function Pigging({ journey, nomax, period, transitTime }) {
+export default function Pigging({ journey, period, transitTime }) {
   const defaults = {
     period: 20,
     timeInRun: 70,
@@ -24,8 +24,6 @@ export default function Pigging({ journey, nomax, period, transitTime }) {
   //   setHasChanged(nomax !== Infinity);
   // }, [period]);
   // const firstEntry = 2 * period + 1;
-
-  function selectCaseNumbers({ period, transitTime }) {}
 
   return (
     <div className="grid col-span-full grid-cols-12 gap-2 my-6 items-center">

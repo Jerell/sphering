@@ -26,8 +26,7 @@ export async function getStaticProps() {
 }
 
 export default function Page({ pagesData, journey }) {
-  const [pig_nomax, setNoMax] = useState(0);
-  const [pig_period, setPigPeriod] = useState(20);
+  const [pig_period, setPigPeriod] = useState(0);
   const [pig_transit, setTransit] = useState(70);
 
   return (

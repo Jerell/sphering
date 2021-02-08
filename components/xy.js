@@ -23,10 +23,11 @@ const tieInPoints = [
   { x: 66279, name: "Bacton", journeyFraction: 1 },
 ];
 
-function getPigPositions({ period = 10, transitTime, timeInRun, journey }) {
+function getPigPositions({ period, transitTime, timeInRun, journey }) {
   console.log(arguments[0]);
 
   const pigs = [];
+  if (!period) return pigs;
   function addPig({ x, y }) {
     pigs.push({ x, y });
   }
@@ -43,7 +44,7 @@ function getPigPositions({ period = 10, transitTime, timeInRun, journey }) {
   for (let i = 0; i < numPigs; i++) {
     const travelTime = timeInRun - i * period;
     const journeyFraction = travelTime / transitTime;
-    console.log(i, travelTime, journeyFraction);
+    // console.log(i, travelTime, journeyFraction);
     if (journeyFraction > 1) continue; // skip if past end
 
     const jf = round(journeyFraction, 4);

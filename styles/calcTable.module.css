@@ -54,6 +54,10 @@
   @apply text-green-600;
 }
 
+.caseIncomplete {
+  @apply text-gray-400 cursor-default hover:text-gray-400;
+}
+
 .rowIncomplete {
   @apply text-transparent;
 }

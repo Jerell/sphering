@@ -103,8 +103,8 @@ function CaseRow({
   useEffect(emptyTrigger, [isEmpty]);
 
   useEffect(() => {
-    if (setPeriod) setPeriod(pigging.period);
-    if (setTransit) setTransit(pigging.transit);
+    // if (setPeriod) setPeriod(pigging.period);
+    // if (setTransit) setTransit(pigging.transit);
     emptyCheck();
   }, [gfrSouthwark, gfrBlythe]);
 
@@ -166,8 +166,13 @@ function CaseRow({
       >
         <FontAwesomeIcon
           icon={faChartArea}
-          className={`${styles.rowChart} ${selected && styles.selectedCase}`}
-          onClick={() => selectCase({ ...pigging, casenum })}
+          className={`${styles.rowChart} ${selected && styles.selectedCase} ${
+            (!gfrSouthwark || !gfrBlythe) && styles.caseIncomplete
+          }`}
+          onClick={() => {
+            if (!gfrSouthwark || !gfrBlythe) return;
+            selectCase({ ...pigging, casenum });
+          }}
         />
         <div className={styles[cln]}>
           <div>
