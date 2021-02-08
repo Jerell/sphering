@@ -32,14 +32,9 @@ export default function Page({ pagesData, journey }) {
 
   return (
     <Layout pagesData={pagesData}>
-      <CalcTable
-        setNoMax={setNoMax}
-        setPeriod={setPigPeriod}
-        setTransit={setTransit}
-      />
+      <CalcTable setPeriod={setPigPeriod} setTransit={setTransit} />
       <Pigging
         journey={journey}
-        nomax={pig_nomax}
         period={pig_period}
         transitTime={pig_transit}
       />

@@ -50,6 +50,10 @@
   @apply absolute bottom-2 -left-5 h-6 fill-current text-yellow-400 hover:text-yellow-600 cursor-pointer;
 }
 
+.rowIncomplete {
+  @apply text-transparent;
+}
+
 /* .case > div > div {
   @apply mx-1 bg-gray-300;
 } */

@@ -73,9 +73,9 @@ function CaseRow({
   cgrSouthwark,
   cgrBlythe,
   addRow,
-  setNoMax,
   setPeriod,
   setTransit,
+  selectCase,
 }) {
   const cln = "case";
 
@@ -102,7 +102,6 @@ function CaseRow({
   useEffect(emptyTrigger, [isEmpty]);
 
   useEffect(() => {
-    if (setNoMax) setNoMax(numberMax);
     if (setPeriod) setPeriod(pigging.period);
     if (setTransit) setTransit(pigging.transit);
     emptyCheck();
@@ -160,14 +159,14 @@ function CaseRow({
     <>
       <div
         className={`${styles.row} ${
-          !gfrSouthwark && !gfrBlythe && "text-transparent"
+          !gfrSouthwark && !gfrBlythe && styles.rowIncomplete
         }`}
         data-label={`case number ${casenum}`}
       >
         <FontAwesomeIcon
           icon={faChartArea}
           className={styles.rowChart}
-          // onClick={() => setNumRows(numRows - 1)}
+          onClick={() => selectCase({ ...pigging })}
         />
         <div className={styles[cln]}>
           <div>
@@ -226,13 +225,7 @@ function CaseRow({
   );
 }
 
-export function DataTable({
-  cgrSouthwark,
-  cgrBlythe,
-  setNoMax,
-  setPeriod,
-  setTransit,
-}) {
+export function DataTable({ cgrSouthwark, cgrBlythe, setPeriod, setTransit }) {
   const [numRows, setNumRows] = useState(1);
 
   function selectCase({ period, transit }) {
@@ -247,7 +240,6 @@ export function DataTable({
       cgrBlythe={cgrBlythe}
       addRow={addRow}
       key={i}
-      setNoMax={setNoMax}
       setPeriod={setPeriod}
       setTransit={setTransit}
       selectCase={selectCase}
@@ -276,7 +268,7 @@ export function DataTable({
   );
 }
 
-export default function CalcTable({ setNoMax, setPeriod, setTransit }) {
+export default function CalcTable({ setPeriod, setTransit }) {
   const defaults = {
     cgrs: 0.8909,
     cgrb: 20.205,
@@ -322,7 +314,6 @@ export default function CalcTable({ setNoMax, setPeriod, setTransit }) {
           <DataTable
             cgrSouthwark={cgrSouthwark}
             cgrBlythe={cgrBlythe}
-            setNoMax={setNoMax}
             setPeriod={setPeriod}
             setTransit={setTransit}
           />
