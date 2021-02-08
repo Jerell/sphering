@@ -62,6 +62,10 @@
   @apply text-transparent;
 }
 
+.addRow {
+  @apply text-xs text-green-700 hover:text-green-500 font-bold cursor-pointer;
+}
+
 /* .case > div > div {
   @apply mx-1 bg-gray-300;
 } */

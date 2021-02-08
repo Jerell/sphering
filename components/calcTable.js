@@ -73,8 +73,6 @@ function CaseRow({
   cgrSouthwark,
   cgrBlythe,
   addRow,
-  setPeriod,
-  setTransit,
   selectCase,
   selected,
 }) {
@@ -255,6 +253,12 @@ export function DataTable({ cgrSouthwark, cgrBlythe, setPeriod, setTransit }) {
     />
   ));
 
+  const addRowButton = (
+    <p className={styles.addRow} onClick={() => addRow(numRows)}>
+      Add new case
+    </p>
+  );
+
   const removeRowButton =
     numRows > 1 ? (
       <FontAwesomeIcon
@@ -273,6 +277,7 @@ export function DataTable({ cgrSouthwark, cgrBlythe, setPeriod, setTransit }) {
       <Headings />
       {rows}
       {removeRowButton}
+      {addRowButton}
     </>
   );
 }
