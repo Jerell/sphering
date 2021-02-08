@@ -49,13 +49,13 @@ export default function Pigging({ journey, period, transitTime }) {
         unitRight
         fn={updateTransitTime}
       /> */}
-      <NumberInput
+      {/* <NumberInput
         label="Time in run"
         placeholder={defaults.timeInRun}
         unit="hours"
         unitRight
         fn={updateTimeInRun}
-      />
+      /> */}
       <div className="col-span-full">
         <XY
           period={period}
