@@ -76,6 +76,7 @@ function CaseRow({
   setPeriod,
   setTransit,
   selectCase,
+  selected,
 }) {
   const cln = "case";
 
@@ -165,8 +166,8 @@ function CaseRow({
       >
         <FontAwesomeIcon
           icon={faChartArea}
-          className={styles.rowChart}
-          onClick={() => selectCase({ ...pigging })}
+          className={`${styles.rowChart} ${selected && styles.selectedCase}`}
+          onClick={() => selectCase({ ...pigging, casenum })}
         />
         <div className={styles[cln]}>
           <div>
@@ -227,10 +228,12 @@ function CaseRow({
 
 export function DataTable({ cgrSouthwark, cgrBlythe, setPeriod, setTransit }) {
   const [numRows, setNumRows] = useState(1);
+  const [selectedCaseNum, setSelectedCaseNum] = useState(0);
 
-  function selectCase({ period, transit }) {
+  function selectCase({ period, transit, casenum }) {
     setPeriod(period);
     setTransit(transit);
+    setSelectedCaseNum(casenum);
   }
 
   const rows = Array.apply(null, { length: numRows }).map((e, i) => (
@@ -243,6 +246,7 @@ export function DataTable({ cgrSouthwark, cgrBlythe, setPeriod, setTransit }) {
       setPeriod={setPeriod}
       setTransit={setTransit}
       selectCase={selectCase}
+      selected={selectedCaseNum === i + 1}
     />
   ));
 
