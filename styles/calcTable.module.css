@@ -43,7 +43,11 @@
 }
 
 .rowRemove {
-  @apply absolute bottom-3 -left-4 h-5 fill-current text-red-800 hover:text-red-500 cursor-pointer;
+  @apply absolute bottom-2.5 -left-12 h-5 fill-current text-red-800 hover:text-red-500 cursor-pointer;
+}
+
+.rowChart {
+  @apply absolute bottom-2 -left-5 h-6 fill-current text-yellow-400 hover:text-yellow-600 cursor-pointer;
 }
 
 /* .case > div > div {

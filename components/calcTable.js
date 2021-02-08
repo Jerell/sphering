@@ -2,7 +2,7 @@ import NumberInput from "../components/inputs/numberInput";
 import styles from "../styles/calcTable.module.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faMinusCircle, faChartArea } from "@fortawesome/free-solid-svg-icons";
 import { round } from "../public/utils";
 
 function Headings() {
@@ -164,6 +164,11 @@ function CaseRow({
         }`}
         data-label={`case number ${casenum}`}
       >
+        <FontAwesomeIcon
+          icon={faChartArea}
+          className={styles.rowChart}
+          // onClick={() => setNumRows(numRows - 1)}
+        />
         <div className={styles[cln]}>
           <div>
             <NumberInput
@@ -230,6 +235,11 @@ export function DataTable({
 }) {
   const [numRows, setNumRows] = useState(1);
 
+  function selectCase({ period, transit }) {
+    setPeriod(period);
+    setTransit(transit);
+  }
+
   const rows = Array.apply(null, { length: numRows }).map((e, i) => (
     <CaseRow
       casenum={i + 1}
@@ -240,6 +250,7 @@ export function DataTable({
       setNoMax={setNoMax}
       setPeriod={setPeriod}
       setTransit={setTransit}
+      selectCase={selectCase}
     />
   ));
 

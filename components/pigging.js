@@ -6,11 +6,11 @@ import { round } from "../public/utils";
 export default function Pigging({ journey, nomax, period, transitTime }) {
   const defaults = {
     period: 20,
-    timeInRun: 65,
+    timeInRun: 70,
     transit: 70,
   };
 
-  const [hasChanged, setHasChanged] = useState(false);
+  // const [hasChanged, setHasChanged] = useState(false);
 
   // const [period, setPeriod] = useState(defaults.period);
   const [timeInRun, setTimeInRun] = useState(defaults.timeInRun);
@@ -20,21 +20,23 @@ export default function Pigging({ journey, nomax, period, transitTime }) {
   const updateTimeInRun = (n) => setTimeInRun(n ? n : defaults.timeInRun);
   // const updateTransitTime = (n) => setTransitTime(n ? n : defaults.transit);
 
-  useEffect(() => {
-    setHasChanged(nomax !== Infinity);
-  }, [period]);
-  const firstEntry = 2 * period + 1;
+  // useEffect(() => {
+  //   setHasChanged(nomax !== Infinity);
+  // }, [period]);
+  // const firstEntry = 2 * period + 1;
+
+  function selectCaseNumbers({ period, transitTime }) {}
 
   return (
     <div className="grid col-span-full grid-cols-12 gap-2 my-6 items-center">
-      <p className="italic col-span-2">
+      {/* <p className="italic col-span-2">
         {hasChanged ? (
           <>
             First pig enters at{" "}
             <span className="font-semibold">{round(firstEntry, 1)}</span> hours.
           </>
         ) : null}
-      </p>
+      </p> */}
       {/* <NumberInput
         label="Pigging period"
         placeholder={defaults.period}
@@ -62,7 +64,6 @@ export default function Pigging({ journey, nomax, period, transitTime }) {
           transitTime={transitTime}
           timeInRun={timeInRun}
           journey={journey}
-          nomax={nomax}
         />
       </div>
     </div>

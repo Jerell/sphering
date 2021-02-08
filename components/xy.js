@@ -23,13 +23,7 @@ const tieInPoints = [
   { x: 66279, name: "Bacton", journeyFraction: 1 },
 ];
 
-function getPigPositions({
-  period,
-  transitTime,
-  timeInRun,
-  journey,
-  nomax = 4,
-}) {
+function getPigPositions({ period = 10, transitTime, timeInRun, journey }) {
   console.log(arguments[0]);
 
   const pigs = [];
@@ -40,16 +34,14 @@ function getPigPositions({
     pigs.shift();
   }
 
-  const firstEntry = 2 * period + 1;
-  const numPigs = Math.min(
-    nomax,
-    (timeInRun >= firstEntry) + Math.floor((timeInRun - firstEntry) / period)
-  );
+  // const firstEntry = 2 * period + 1;
+  const numPigs = Math.ceil(timeInRun / period);
+
   console.log({ numPigs });
   if (!numPigs) return pigs;
 
   for (let i = 0; i < numPigs; i++) {
-    const travelTime = timeInRun - i * period - firstEntry;
+    const travelTime = timeInRun - i * period;
     const journeyFraction = travelTime / transitTime;
     console.log(i, travelTime, journeyFraction);
     if (journeyFraction > 1) continue; // skip if past end
@@ -57,8 +49,9 @@ function getPigPositions({
     const jf = round(journeyFraction, 4);
     const coordIdx = journey.findIndex((row) => parseFloat(row[0]) > jf) - 1;
     const coordRow = journey[coordIdx];
-
-    addPig({ x: parseFloat(coordRow[1]), y: parseFloat(coordRow[2]) });
+    if (coordRow) {
+      addPig({ x: parseFloat(coordRow[1]), y: parseFloat(coordRow[2]) });
+    }
   }
   console.log(pigs);
   return pigs;
@@ -72,7 +65,6 @@ export default function XY({ period, transitTime, timeInRun, journey, nomax }) {
     transitTime,
     timeInRun,
     journey,
-    nomax,
   });
 
   function init() {
