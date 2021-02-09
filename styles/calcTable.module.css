@@ -43,11 +43,11 @@
 }
 
 .rowRemove {
-  @apply absolute bottom-3 2xl:bottom-8 -left-4 2xl:-left-12 h-5 fill-current text-red-800 hover:text-red-500 cursor-pointer;
+  @apply absolute bottom-0 2xl:bottom-8 -left-4 2xl:-left-14 h-6 fill-current text-red-800 hover:text-red-500 cursor-pointer text-xl;
 }
 
 .rowChart {
-  @apply absolute bottom-2 -left-5 h-6 fill-current text-yellow-400 hover:text-yellow-600 cursor-pointer;
+  @apply absolute bottom-2 -left-4 2xl:-left-6 h-6 text-xl fill-current text-yellow-400 hover:text-yellow-600 cursor-pointer;
 }
 
 .selectedCase {
@@ -63,7 +63,7 @@
 }
 
 .addRow {
-  @apply text-xs text-green-700 hover:text-green-500 font-bold cursor-pointer;
+  @apply text-xs text-green-700 hover:text-green-500 font-bold cursor-pointer pl-3;
 }
 
 /* .case > div > div {

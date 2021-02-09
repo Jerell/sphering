@@ -2,7 +2,8 @@ import NumberInput from "../components/inputs/numberInput";
 import styles from "../styles/calcTable.module.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinusCircle, faChartArea } from "@fortawesome/free-solid-svg-icons";
+import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlayCircle } from "@fortawesome/free-regular-svg-icons";
 import { round } from "../public/utils";
 
 function Headings() {
@@ -163,7 +164,7 @@ function CaseRow({
         data-label={`case number ${casenum}`}
       >
         <FontAwesomeIcon
-          icon={faChartArea}
+          icon={faPlayCircle}
           className={`${styles.rowChart} ${selected && styles.selectedCase} ${
             (!gfrSouthwark || !gfrBlythe) && styles.caseIncomplete
           }`}

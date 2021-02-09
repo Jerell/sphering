@@ -38,7 +38,6 @@ export function StartDate({}) {
 export function EndDate({}) {
   const [disabled, setDisabled] = useState(false);
   function handleClick(e) {
-    console.log("ASASASA");
     e.persist();
     setDisabled(false);
   }

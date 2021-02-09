@@ -16,7 +16,6 @@ export async function getStaticProps() {
   );
 
   const rows = parse(journey_csv);
-  console.log(rows);
   return {
     props: {
       pagesData,
