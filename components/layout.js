@@ -10,7 +10,7 @@ export default function Layout({ children, pagesData }) {
   return (
     <>
       <Head>
-        <link rel="icon" href="./favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="Sphering demo" />
         <meta property="og:image" content="./Pace_Brand.png" />
         <meta name="og:title" content={title} />
@@ -20,7 +20,7 @@ export default function Layout({ children, pagesData }) {
       <header className={styles.header}>
         <Link href="/">
           <a>
-            <img src="./Pace_White.png" className="h-16" />
+            <img src="/Pace_White.png" className="h-16" />
           </a>
         </Link>
         <h1 className={utilStyles.headingLg}>
