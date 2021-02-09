@@ -12,10 +12,7 @@ export default function Layout({ children, pagesData }) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="Sphering demo" />
-        <meta
-          property="og:image"
-          content={`${process.env.BASE_PATH}/Pace_Brand.png`}
-        />
+        <meta property="og:image" content={`/${title}/Pace_Brand.png`} />
         <meta name="og:title" content={title} />
         <meta name="twitter:card" content="summary-large_image" />
         <title>{title}</title>
@@ -23,10 +20,7 @@ export default function Layout({ children, pagesData }) {
       <header className={styles.header}>
         <Link href="/">
           <a>
-            <img
-              src={`${process.env.BASE_PATH}/Pace_White.png`}
-              className="h-16"
-            />
+            <img src={`/${title}/Pace_White.png`} className="h-16" />
           </a>
         </Link>
         <h1 className={utilStyles.headingLg}>
