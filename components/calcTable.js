@@ -11,15 +11,15 @@ function Headings() {
   return (
     <div className={`${styles.row}`}>
       <div className={styles[cln]}>
-        <div>Gas flowrate at Southwark Platform</div>
+        <div>Gas flowrate at SW Platform</div>
         <div>MMscfd</div>
       </div>
       <div className={styles[cln]}>
-        <div>Gas flowrate at Blythe Platform</div>
+        <div>Gas flowrate at BY Platform</div>
         <div>MMscfd</div>
       </div>
       <div className={styles[cln]}>
-        <div>Condensate flowrate at Bacton</div>
+        <div>Condensate flowrate at BC</div>
         <div>
           <div>bbl/d</div>
           <div>m3/h</div>
@@ -28,8 +28,8 @@ function Headings() {
       <div className={`${styles[cln]} col-span-2`}>
         <div>Condensate Flowrate</div>
         <div>
-          <div>Southwark</div>
-          <div>Blythe</div>
+          <div>SW</div>
+          <div>BY</div>
         </div>
         <div>
           <div>bbl/d</div>
@@ -39,8 +39,8 @@ function Headings() {
       <div className={`${styles[cln]} col-span-2`}>
         <div>Backpressure</div>
         <div>
-          <div>Southwark</div>
-          <div>Blythe</div>
+          <div>SW</div>
+          <div>BY</div>
         </div>
         <div>
           <div>barg</div>
@@ -49,7 +49,7 @@ function Headings() {
       </div>
       <div className={styles[cln]}>
         <div>Pressure drop</div>
-        <div>Blythe</div>
+        <div>BY</div>
         <div>barg</div>
       </div>
       <div className={`${styles[cln]} col-span-2`}>
@@ -69,18 +69,11 @@ function Headings() {
   );
 }
 
-function CaseRow({
-  casenum,
-  cgrSouthwark,
-  cgrBlythe,
-  addRow,
-  selectCase,
-  selected,
-}) {
+function CaseRow({ casenum, cgrSW, cgrBY, addRow, selectCase, selected }) {
   const cln = "case";
 
-  const [gfrSouthwark, setGfrSouthwark] = useState(0);
-  const [gfrBlythe, setGfrBlythe] = useState(0);
+  const [gfrSW, setgfrSW] = useState(0);
+  const [gfrBY, setGfrBY] = useState(0);
   const [isEmpty, setIsEmpty] = useState(true);
 
   // const [nomax, setNoMax] = useState(0);
@@ -88,7 +81,7 @@ function CaseRow({
   let wasEmpty = true;
 
   function emptyCheck() {
-    const bothInputsEntered = gfrSouthwark && gfrBlythe;
+    const bothInputsEntered = gfrSW && gfrBY;
     wasEmpty = isEmpty;
     setIsEmpty(!bothInputsEntered);
   }
@@ -105,35 +98,35 @@ function CaseRow({
     // if (setPeriod) setPeriod(pigging.period);
     // if (setTransit) setTransit(pigging.transit);
     emptyCheck();
-  }, [gfrSouthwark, gfrBlythe]);
+  }, [gfrSW, gfrBY]);
 
-  const updateGfrS = (n) => setGfrSouthwark(n ? n : 0);
-  const updateGfrB = (n) => setGfrBlythe(n ? n : 0);
+  const updateGfrS = (n) => setgfrSW(n ? n : 0);
+  const updateGfrB = (n) => setGfrBY(n ? n : 0);
 
-  const columnU = parseFloat(gfrSouthwark) + 0.1 * parseFloat(gfrBlythe);
+  const columnU = parseFloat(gfrSW) + 0.1 * parseFloat(gfrBY);
 
   const condensateFR = {
-    southwark: gfrSouthwark * cgrSouthwark,
-    blythe: gfrBlythe * cgrBlythe,
+    SW: gfrSW * cgrSW,
+    BY: gfrBY * cgrBY,
   };
 
-  const cfrAtBacton = {
-    bb: condensateFR.southwark + condensateFR.blythe,
+  const cfrAtBC = {
+    bb: condensateFR.SW + condensateFR.BY,
     m3: function () {
       return this.bb * 0.0066;
     },
   };
 
   const backPressure = {
-    blythe: 0.0021 * gfrBlythe ** 2 - 0.151 * gfrBlythe + 86.101,
+    BY: 0.0021 * gfrBY ** 2 - 0.151 * gfrBY + 86.101,
   };
 
   const pressureDrop = {
-    blythe: backPressure.blythe * 0.651 - 50.113,
+    BY: backPressure.BY * 0.651 - 50.113,
   };
 
   const pigging = {
-    period: 0.3195 * cfrAtBacton.m3() ** 2 - 9.5667 * cfrAtBacton.m3() + 85.095,
+    period: 0.3195 * cfrAtBC.m3() ** 2 - 9.5667 * cfrAtBC.m3() + 85.095,
     transit: 2315.4 * columnU ** -1.148,
   };
 
@@ -158,18 +151,16 @@ function CaseRow({
   return (
     <>
       <div
-        className={`${styles.row} ${
-          !gfrSouthwark && !gfrBlythe && styles.rowIncomplete
-        }`}
+        className={`${styles.row} ${!gfrSW && !gfrBY && styles.rowIncomplete}`}
         data-label={`case number ${casenum}`}
       >
         <FontAwesomeIcon
           icon={faPlayCircle}
           className={`${styles.rowChart} ${selected && styles.selectedCase} ${
-            (!gfrSouthwark || !gfrBlythe) && styles.caseIncomplete
+            (!gfrSW || !gfrBY) && styles.caseIncomplete
           }`}
           onClick={() => {
-            if (!gfrSouthwark || !gfrBlythe) return;
+            if (!gfrSW || !gfrBY) return;
             selectCase({ ...pigging, casenum });
           }}
         />
@@ -199,24 +190,24 @@ function CaseRow({
         </div>
         <div className={styles[cln]}>
           <div>
-            <div>{round(cfrAtBacton.bb)}</div>
-            <div>{round(cfrAtBacton.m3())}</div>
+            <div>{round(cfrAtBC.bb)}</div>
+            <div>{round(cfrAtBC.m3())}</div>
           </div>
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
-            <div>{round(condensateFR.southwark)}</div>
-            <div>{round(condensateFR.blythe)}</div>
+            <div>{round(condensateFR.SW)}</div>
+            <div>{round(condensateFR.BY)}</div>
           </div>
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
             <div>{spheresAndPressure[numberMax]}</div>
-            <div>{round(backPressure.blythe)}</div>
+            <div>{round(backPressure.BY)}</div>
           </div>
         </div>
         <div className={styles[cln]}>
-          <div>{round(pressureDrop.blythe, 1)}</div>
+          <div>{round(pressureDrop.BY, 1)}</div>
         </div>
         <div className={`${styles[cln]} col-span-2`}>
           <div>
@@ -230,7 +221,7 @@ function CaseRow({
   );
 }
 
-export function DataTable({ cgrSouthwark, cgrBlythe, setPeriod, setTransit }) {
+export function DataTable({ cgrSW, cgrBY, setPeriod, setTransit }) {
   const [numRows, setNumRows] = useState(1);
   const [selectedCaseNum, setSelectedCaseNum] = useState(0);
 
@@ -243,8 +234,8 @@ export function DataTable({ cgrSouthwark, cgrBlythe, setPeriod, setTransit }) {
   const rows = Array.apply(null, { length: numRows }).map((e, i) => (
     <CaseRow
       casenum={i + 1}
-      cgrSouthwark={cgrSouthwark}
-      cgrBlythe={cgrBlythe}
+      cgrSW={cgrSW}
+      cgrBY={cgrBY}
       addRow={addRow}
       key={i}
       setPeriod={setPeriod}
@@ -288,11 +279,11 @@ export default function CalcTable({ setPeriod, setTransit }) {
     cgrs: 0.8909,
     cgrb: 20.205,
   };
-  const [cgrSouthwark, setCgrSouthwark] = useState(defaults.cgrs);
-  const [cgrBlythe, setCgrBlythe] = useState(defaults.cgrb);
+  const [cgrSW, setcgrSW] = useState(defaults.cgrs);
+  const [cgrBY, setcgrBY] = useState(defaults.cgrb);
 
-  const updateCgrS = (n) => setCgrSouthwark(n ? n : defaults.cgrs);
-  const updateCgrB = (n) => setCgrBlythe(n ? n : defaults.cgrb);
+  const updateCgrS = (n) => setcgrSW(n ? n : defaults.cgrs);
+  const updateCgrB = (n) => setcgrBY(n ? n : defaults.cgrb);
 
   return (
     <>
@@ -309,7 +300,7 @@ export default function CalcTable({ setPeriod, setTransit }) {
         </div>
         <NumberInput
           // inputWidth={1}
-          label="CGR Southwark Line"
+          label="CGR SW Line"
           placeholder={defaults.cgrs}
           fn={updateCgrS}
           unit="bbl/MMscfd"
@@ -318,7 +309,7 @@ export default function CalcTable({ setPeriod, setTransit }) {
         />
         <NumberInput
           // inputWidth={1}
-          label="CGR Blythe Platform"
+          label="CGR BY Platform"
           placeholder={defaults.cgrb}
           fn={updateCgrB}
           unit="bbl/MMscfd"
@@ -327,8 +318,8 @@ export default function CalcTable({ setPeriod, setTransit }) {
         />
         <div className="contents col-span-full">
           <DataTable
-            cgrSouthwark={cgrSouthwark}
-            cgrBlythe={cgrBlythe}
+            cgrSW={cgrSW}
+            cgrBY={cgrBY}
             setPeriod={setPeriod}
             setTransit={setTransit}
           />

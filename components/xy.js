@@ -18,10 +18,10 @@ function getRandom(arr, n) {
 }
 
 const tieInPoints = [
-  { x: 0, name: "Southwark Hub Platform", journeyFraction: 0 },
-  { x: 5655, name: "Southwark Hub Tie-in", journeyFraction: 0.15 },
-  { x: 37255, name: "Blythe Hub Tie-in", journeyFraction: 0.75 },
-  { x: 66279, name: "Bacton", journeyFraction: 1 },
+  { x: 0, name: "SW Hub Platform", journeyFraction: 0 },
+  { x: 5655, name: "SW Hub Tie-in", journeyFraction: 0.15 },
+  { x: 37255, name: "BY Hub Tie-in", journeyFraction: 0.75 },
+  { x: 66279, name: "BC", journeyFraction: 1 },
 ];
 
 function getPigPositions({ period, transitTime, timeInRun, journey }) {
