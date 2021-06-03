@@ -7,7 +7,7 @@ module.exports = {
   //     "/": { page: "/" },
   //   };
   // },
-  basePath: "/sphering",
+  // basePath: "/sphering",
   assetPrefix: isProd
     ? "https://cdn.statically.io/gh/jerell/sphering/gh-pages"
     : "",

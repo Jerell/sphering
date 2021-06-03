@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
   return (
     <Provider
       session={pageProps.session}
-      options={{ basePath: `/sphering/api/auth` }}
+      // options={{ basePath: `/sphering/api/auth` }}
     >
       <div className="flex flex-col min-h-screen">
         <Component {...pageProps} />
