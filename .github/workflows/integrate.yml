@@ -27,6 +27,7 @@ jobs:
       - run: npm run build
         env:
           CI: true
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
           NEXTAUTH_USERNAME: ${{ secrets.NEXTAUTH_USERNAME }}
           NEXTAUTH_PASSWORD: ${{ secrets.NEXTAUTH_PASSWORD }}
 
