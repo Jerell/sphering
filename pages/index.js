@@ -6,6 +6,8 @@ import fs from "fs";
 import path from "path";
 import parse from "csv-parse/lib/sync";
 import { useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/client";
+import Loading from "../components/loading";
 
 export async function getStaticProps() {
   const pagesData = getPagesObj();
@@ -25,17 +27,33 @@ export async function getStaticProps() {
 }
 
 export default function Page({ pagesData, journey }) {
+  const [session, loading] = useSession();
   const [pig_period, setPigPeriod] = useState(0);
   const [pig_transit, setTransit] = useState(70);
 
+  if (session) {
+    return (
+      <Layout pagesData={pagesData}>
+        <CalcTable setPeriod={setPigPeriod} setTransit={setTransit} />
+        <Pigging
+          journey={journey}
+          period={pig_period}
+          transitTime={pig_transit}
+        />
+      </Layout>
+    );
+  }
   return (
-    <Layout pagesData={pagesData}>
-      <CalcTable setPeriod={setPigPeriod} setTransit={setTransit} />
-      <Pigging
-        journey={journey}
-        period={pig_period}
-        transitTime={pig_transit}
-      />
-    </Layout>
+    <>
+      <div className="flex flex-col p-10 items-center">
+        <Loading />
+        <button
+          onClick={() => signIn()}
+          className="w-20 h-15 mt-5 text-white bg-red-900"
+        >
+          Sign in
+        </button>
+      </div>
+    </>
   );
 }

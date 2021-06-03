@@ -20,6 +20,7 @@
     "date-fns": "^2.16.1",
     "gray-matter": "^4.0.2",
     "next": "^10.0.0",
+    "next-auth": "^3.25.0",
     "postcss": "^7.0.35",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^6.7.0",
