@@ -20,7 +20,7 @@ export default function Layout({ children, pagesData }) {
       <header className={styles.header}>
         <Link href="/">
           <a>
-            <img src={`/${title}/Pace_White.png`} className="h-16" />
+            <img src={"/Pace_White.png"} className="h-16" />
           </a>
         </Link>
         <h1 className={utilStyles.headingLg}>
