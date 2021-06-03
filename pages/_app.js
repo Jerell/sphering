@@ -1,4 +1,5 @@
 import "../styles/global.scss";
+import { Provider } from "next-auth/client";
 
 Date.prototype.addDays = function (days) {
   let date = new Date(this.valueOf());
@@ -16,11 +17,13 @@ Date.prototype.end = function (day = 5) {
 
 export default function App({ Component, pageProps }) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Component {...pageProps} />
-      <footer className="bg-gray-100 w-full text-center p-4">
-        <p>&copy; Pace Flow Assurance</p>
-      </footer>
-    </div>
+    <Provider session={pageProps.session} options={{ basePath: `/api/auth` }}>
+      <div className="flex flex-col min-h-screen">
+        <Component {...pageProps} />
+        <footer className="bg-gray-100 w-full text-center p-4">
+          <p>&copy; Pace Flow Assurance</p>
+        </footer>
+      </div>
+    </Provider>
   );
 }
