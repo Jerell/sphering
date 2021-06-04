@@ -17,7 +17,7 @@ Date.prototype.end = function (day = 5) {
 
 export default function App({ Component, pageProps }) {
   return (
-    <Provider session={pageProps.session}>
+    <Provider session={pageProps.session} options={{ basePath: `/api/auth` }}>
       <div className="flex flex-col min-h-screen">
         <Component {...pageProps} />
         <footer className="bg-gray-100 w-full text-center p-4">
