@@ -48,11 +48,12 @@ export default function Page({ pagesData, journey }) {
     <>
       <div className="flex flex-col p-10 items-center">
         <Loading />
-        <Link href="/api/auth/signin">
-          <a className="w-20 h-15 mt-5 text-white bg-red-900 text-center">
-            Sign in
-          </a>
-        </Link>
+        <button
+          className="w-20 h-15 mt-5 text-white bg-red-900 text-center"
+          onClick={() => signIn("credentials")}
+        >
+          Sign in
+        </button>
       </div>
     </>
   );
