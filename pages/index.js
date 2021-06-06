@@ -50,7 +50,7 @@ export default function Page({ pagesData, journey }) {
         <Loading />
         <button
           className="w-20 h-15 mt-5 text-white bg-red-900 text-center"
-          onClick={() => signIn("credentials")}
+          onClick={() => signIn()}
         >
           Sign in
         </button>
